@@ -11,11 +11,11 @@ export const routes: Routes = [
     {
         path: 'country',
         // esto es por lazy loading
-        loadChildren: () => import('./country/country.routes'),
+        loadChildren: () => import('./country/country.routes'),//entramos al archivo country.routes
 
         //loadChildren: () => import('./country/country.routes').then(m => m.routes)
     },
-    {
+    {//si no encuentra nada lo redirige al home
         path: "**",
         redirectTo: "home",
     }
