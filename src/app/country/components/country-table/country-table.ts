@@ -6,4 +6,19 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './country-table.html',
   changeDetection: ChangeDetectionStrategy.Eager,
 })
-export class CountryTable {}
+export class CountryTable {
+
+
+
+  dragAndDropTable(item: string, index: number) {
+
+
+    console.log(item, index);
+  }
+
+  scrollHidenColumns() {
+
+  }
+
+
+}

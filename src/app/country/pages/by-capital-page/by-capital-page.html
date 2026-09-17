@@ -1,2 +1,7 @@
+<!-- esta es una pagina independiente recibe datos del hijo mediante un output 
+  para el input  pasamos placeholder desde el padre 
+-->
 <app-country-input-search (value)="onSearch($event) " [placeHolder]="'buscar por capital'"></app-country-input-search>
+
+<!-- y muestra los datos en la tabla -->
 <app-country-table></app-country-table>

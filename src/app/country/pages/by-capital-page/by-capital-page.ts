@@ -17,16 +17,6 @@ export class ByCapitalPage {
 
 
 
-  dragAndDropTable(item: string, index: number) {
-
-
-    console.log(item, index);
-  }
-
-  scrollHidenColumns() {
-
-  }
-
 
 
 
