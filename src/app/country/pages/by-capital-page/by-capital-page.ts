@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CountryInputSearch } from '../../components/country-input-search/country-input-search';
 import { CountryTable } from '../../components/country-table/country-table';
+import { CountryService } from '../../services/country.service';
 
 @Component({
   selector: 'app-by-capital-page',
@@ -10,8 +11,14 @@ import { CountryTable } from '../../components/country-table/country-table';
 })
 export class ByCapitalPage {
 
+
+  public searchCarpitalService = inject(CountryService)
   onSearch(value: string) {
     console.log(value);
+    this.searchCarpitalService.searchByCapital(value).subscribe((data) => {
+      console.log(data);
+    })
+
   }
 
 
