@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { countryEnviroments } from '../../environments/country.environments';
+import { Country, CountryResponse } from '../interfaces/data-country.interface';
+import { map, Observable } from 'rxjs';
 
 
 /*
@@ -13,20 +15,21 @@ export class CountryService {
 
     private http = inject(HttpClient);
 
-
-    searchByCapital(query: string) {
+    //regresa un Observable
+    searchByCapital(query: string): Observable<Country[]> {
         query = query.toLowerCase();
 
-        return this.http.get(`${countryEnviroments.API_URL}`, {
+        return this.http.get<CountryResponse>(`${countryEnviroments.API_URL}`, {
             headers: {
                 Authorization: `Bearer ${countryEnviroments.API_KEY}`
             },
             params: {
                 q: query,
 
-            }
-        })
-
+            },
+        }).pipe(
+            map(response => response.data.objects)
+        );
     }
 
 

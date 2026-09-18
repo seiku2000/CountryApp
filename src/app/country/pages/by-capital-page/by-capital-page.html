@@ -4,4 +4,4 @@
 <app-country-input-search (value)="onSearch($event) " [placeHolder]="'buscar por capital'"></app-country-input-search>
 
 <!-- y muestra los datos en la tabla -->
-<app-country-table></app-country-table>
+<app-country-table [countries]="countries()"></app-country-table>
