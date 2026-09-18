@@ -1,9 +1,38 @@
 export interface Countrys {
-    names: Names;
-    capitals: Capital[];
-    flag: Flag;
+    name: string,
+    capital: string[],
+    flagEmoji: string;
+    flagUrlSvg: string,
     population: number;
 }
+
+/*
+export interface Capital {
+    //attributes: Attributes;
+    //coordinates: Coordinates;
+    name: string;
+}
+
+export interface Coordinates {
+    lat: number;
+    lng: number;
+}
+
+export interface Attributes {
+    administrative: boolean;
+    constitutional: boolean;
+    executive: boolean;
+    judicial: boolean;
+    legislative: boolean;
+    primary: boolean;
+}
+
+
+
+
+/**
+
+
 
 
 
@@ -32,16 +61,10 @@ export interface Capital {
 }
 
 
-export interface Coordinates {
-    lat: number;
-    lng: number;
-}
 
-export interface Attributes {
-    administrative: boolean;
-    constitutional: boolean;
-    executive: boolean;
-    judicial: boolean;
-    legislative: boolean;
-    primary: boolean;
-}
+
+ */
+
+
+
+

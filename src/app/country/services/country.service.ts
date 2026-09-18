@@ -3,6 +3,8 @@ import { inject, Injectable } from '@angular/core';
 import { countryEnviroments } from '../../environments/country.environments';
 import { Country, CountryResponse } from '../interfaces/data-country.interface';
 import { map, Observable } from 'rxjs';
+import { CountryMapper } from '../mapper/country-mapper';
+import { Countrys } from '../interfaces/country.interfacae';
 
 
 /*
@@ -16,7 +18,7 @@ export class CountryService {
     private http = inject(HttpClient);
 
     //regresa un Observable
-    searchByCapital(query: string): Observable<Country[]> {
+    searchByCapital(query: string): Observable<Countrys[]> {
         query = query.toLowerCase();
 
         return this.http.get<CountryResponse>(`${countryEnviroments.API_URL}`, {
@@ -27,8 +29,10 @@ export class CountryService {
                 q: query,
 
             },
+            //usamos pipe como un efecto secundario para transformar los datos antes de que lleguen al componente 
+            // osea que no se altera el flujo original de datos 
         }).pipe(
-            map(response => response.data.objects)
+            map(response => CountryMapper.mapCountryTOarrys(response)),
         );
     }
 

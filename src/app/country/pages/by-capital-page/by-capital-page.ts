@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { CountryInputSearch } from '../../components/country-input-search/country-input-search';
 import { CountryTable } from '../../components/country-table/country-table';
 import { CountryService } from '../../services/country.service';
-import { Country, DataCountry } from '../../interfaces/data-country.interface';
+//import { Country, DataCountry } from '../../interfaces/data-country.interface';
+import { Countrys } from '../../interfaces/country.interfacae';
 
 @Component({
   selector: 'app-by-capital-page',
@@ -16,7 +17,7 @@ export class ByCapitalPage {
   public searchCarpitalService = inject(CountryService);
   isLoading = signal<boolean>(false);
   isError = signal<string | null>(null);
-  countries = signal<Country[]>([]);
+  countries = signal<Countrys[]>([]);
 
 
 

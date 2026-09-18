@@ -14,18 +14,18 @@
                 </tr>
             </thead>
             <tbody>
-                @for (country of countries(); track country.uuid; let index = $index) {
+                @for (country of countries(); track country; let index = $index) {
 
                 <tr class="hover:bg-base-100 cursor-pointer">
 
                     <td>{{ index + 1 }}</td>
-                    <td>{{ country.flag.emoji}}</td>
+                    <td>{{ country.flagEmoji}}</td>
                     <td>
-                        <img [src]="country.flag.url_svg" [alt]="country.names.common" width="32" class="rounded">
+                        <img [src]="country.flagUrlSvg" [alt]="country.name" width="32" class="rounded">
 
                     </td>
-                    <td>{{country.names.common}}</td>
-                    <td>{{country.capitals.map((capital) => capital.name)}}</td>
+                    <td>{{country.name}}</td>
+                    <td>{{country.capital}}</td>
                     <td>{{country.population}}</td>
                     <!---               <td>{{ country.flag.emoji }}</td>
                     <td>
