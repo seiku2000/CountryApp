@@ -1,2 +1,12 @@
 <app-country-input-search (value)="onSearch($event)" [placeHolder]="'buscar por pais'"></app-country-input-search>
-<app-country-table></app-country-table>
+
+
+@if (emptyError() || countryResource.error()) {
+<div class="alert alert-error shadow-lg mt-4">
+    <span>
+        {{ emptyError() || countryResource.error()?.message }}
+    </span>
+</div>
+} @else if(countryResource.hasValue()){
+<app-country-table [countries]="countryResource.value()! "></app-country-table>
+}

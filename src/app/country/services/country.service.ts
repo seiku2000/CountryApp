@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { countryEnviroments } from '../../environments/country.environments';
 import { Country, CountryResponse } from '../interfaces/data-country.interface';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { CountryMapper } from '../mapper/country-mapper';
 import { Countrys } from '../interfaces/country.interfacae';
 
@@ -32,8 +32,37 @@ export class CountryService {
             //usamos pipe como un efecto secundario para transformar los datos antes de que lleguen al componente 
             // osea que no se altera el flujo original de datos 
         }).pipe(
-            map(response => CountryMapper.mapCountryTOarrys(response)),
+            map(response => {
+                if (response.data.objects.length === 0) {
+                    throw new Error('Error: el país que buscas no existe');
+                }
+                return CountryMapper.mapCountryTOarrys(response);
+            }
+
+            )
         );
+
+    }
+    searchByCountry(query: string) {
+        const url = `${countryEnviroments.API_URL}/names.common`
+        return this.http.get<CountryResponse>(url, {
+            headers: {
+                Authorization: `Bearer ${countryEnviroments.API_KEY}`
+            },
+            params: {
+                q: query,
+            }
+
+        }).pipe(
+            map(response => {
+                // console.log(response);
+                if (response.data.objects.length === 0) {
+                    throw new Error("La informacion que buscas no existe");
+                }
+                return CountryMapper.mapCountryTOarrys(response);
+            })
+        )
+
     }
 
 
