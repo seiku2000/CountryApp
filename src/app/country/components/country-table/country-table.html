@@ -26,7 +26,12 @@
                     </td>
                     <td>{{country.name}}</td>
                     <td>{{country.capital}}</td>
-                    <td>{{country.population}}</td>
+                    <td><span class=" badge badge-secondary  font-bold ">{{country.population | number}}
+                        </span></td>
+                    <td>
+                        <a class="link-info cursor-pointer"> Mas Informacion </a>
+
+                    </td>
                     <!---               <td>{{ country.flag.emoji }}</td>
                     <td>
                         <img [src]="country.flag.url_png" [alt]="country.names.common" width="32" class="rounded" />
