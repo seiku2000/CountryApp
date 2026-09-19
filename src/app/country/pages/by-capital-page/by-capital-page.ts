@@ -17,7 +17,7 @@ export class ByCapitalPage {
   query = signal<string>('');
   emptyError = signal<string | null>(null);
 
-  countryRsource = resource({
+  capitalResource = resource({
     params: () => ({ query: this.query() }),
     loader: async ({ params }) => {
       const { query } = params;
