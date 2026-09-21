@@ -16,8 +16,13 @@ export class CountryInputSearch {
 
   // recibimos el valor del input y lo enviamos al padre 
   onSearch(txtSearch: string) {
+    console.log(txtSearch);
     this.value.emit(txtSearch)//enviamos el valor al padre
   }
+
+
+
+
 
 
 }

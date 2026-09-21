@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, resource, signal } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { CountryInputSearch } from '../../components/country-input-search/country-input-search';
 import { CountryTable } from '../../components/country-table/country-table';
 import { CountryService } from '../../services/country.service';
 //import { Country, DataCountry } from '../../interfaces/data-country.interface';
 import { Countrys } from '../../interfaces/country.interfacae';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, of, timeout, TimeoutError } from 'rxjs';
 
 @Component({
   selector: 'app-by-capital-page',
@@ -13,27 +14,53 @@ import { firstValueFrom } from 'rxjs';
   //changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ByCapitalPage {
-  public searchCarpitalService = inject(CountryService);
+  public searchCarpitalService = inject(CountryService);//importamos el servicio
   query = signal<string>('');
   emptyError = signal<string | null>(null);
 
-  capitalResource = resource({
-    params: () => ({ query: this.query() }),
-    loader: async ({ params }) => {
-      const { query } = params;
-      if (!query) return [];
 
-      return await firstValueFrom(this.searchCarpitalService.searchByCapital(query));
+
+  //rxResource (Se encarga de la carga y el estado de los datos) regresa un observable
+  capitalResoure = rxResource({
+
+    params: () => ({ query: this.query() }),
+    stream: ({ params }) => {//el stream es como un switchMap pero lo  hace por dentro automaticamente sin que te suscribas o hagas un mapeo
+      const { query } = params;//desestructura el objeto de params
+      if (!query) return of([]); //of nos permite crear un observable que emita un valor
+      return this.searchCarpitalService.searchByCapital(query);
     }
   });
 
+  /*
+
+  //resources (Se encarga de la carga y el estado de los datos) regresa una promesa (puedes usar asyncawait)
+  capitalResource = resource({//maneja promesas por si solo sin subscribirse (RxJS) y maneja el estado automaticamente
+
+    params: () => ({ query: this.query() }),//cuando este cambie se ejecutara el loader, este es un signal
+    loader: async ({ params }) => {//recibe los params del resource
+      const { query } = params;//desestructura el objeto de params
+      if (!query) return [];
+      //Convierte el observable a promesa con firstValueFrom y luego await para que sea asincrono
+      return await firstValueFrom(this.searchCarpitalService.searchByCapital(query));
+    }
+  });*/
+
+
+
+  //Se encarga de obtener los datos del servicio y los almacena en una señal, la cual es observada por el template.
   onSearch(value: string) {
     const trimmed = value.trim();
 
+
+
+
     if (!trimmed) {
+
       this.emptyError.set('Debes ingresar el nombre de una capital para buscar');
       return;
     }
+
+
 
     this.emptyError.set(null);
     this.query.set(trimmed);

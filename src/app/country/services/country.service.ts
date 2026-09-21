@@ -44,7 +44,7 @@ export class CountryService {
 
     }
     searchByCountry(query: string) {
-        const url = `${countryEnviroments.API_URL}/names.common`
+        const url = `${countryEnviroments.API_URL}`
         return this.http.get<CountryResponse>(url, {
             headers: {
                 Authorization: `Bearer ${countryEnviroments.API_KEY}`
