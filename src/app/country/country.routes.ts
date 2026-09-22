@@ -23,7 +23,7 @@ export const countryRoutes: Routes = [
         },
         {
             // path:'by-capital/:value',
-            path: 'by/:value',
+            path: 'by/:code',
             //una forma de cargar componentes de forma haragana o lazyloading
             loadComponent: () => import('./pages/country-page-component/country-page-component'),
 

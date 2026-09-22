@@ -1,4 +1,5 @@
 export interface Countrys {
+    cca3: string,
     name: string,
     capital: string[],
     flagEmoji: string;

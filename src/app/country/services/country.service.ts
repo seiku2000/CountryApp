@@ -64,6 +64,40 @@ export class CountryService {
 
     }
 
+    searchContryByAlphaCode(code: string) {
+        const url = `${countryEnviroments.API_URL}`;
+        return this.http.get<CountryResponse>(url, {
+            headers: {
+                Authorization: `Bearer ${countryEnviroments.API_KEY}`
+            },
+            params: {
+                q: code,
+            }
+        }).pipe(
+            map((res) => CountryMapper.mapCountryTOarrys(res)),
+            map((countries) => {
+                const contry = countries.find(codeAlpha => codeAlpha.cca3 === code)
+                if (!contry) {
+                    throw new Error("La informacion que buscas no existe");
+
+                }
+                return contry;
+            })
+            /*
+            map((countries) => countries.at(0)),
+            map((country) => {
+                if (!country) {
+                    throw new Error("La informacion que buscas no existe");
+                }
+                return country;
+            }),*/
+
+
+
+
+        )
+    }
+
 
 
 

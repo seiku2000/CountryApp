@@ -12,6 +12,7 @@ export class CountryMapper {
 
     static mapCountryResponseToCountrys(country: Country): Countrys {
         return {
+            cca3: country.codes.alpha_3,
             name: this.getCountryName(country),
             capital: country.capitals.map(capital => capital.name),
             flagEmoji: country.flag.emoji,
