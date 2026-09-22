@@ -11,7 +11,13 @@ import { RouterLink } from "@angular/router";
   changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class CountryTable {
+  //para saber si es un proppiedad requerida en el uso del componente
   countries = input<Countrys[]>([]);
+
+  errorMessage = input<string | undefined>('');
+  isLoading = input<boolean>(false);
+  isEmpty = input<boolean>(false);
+  emptyMessageError = input<string | null>(null);
 
 
 

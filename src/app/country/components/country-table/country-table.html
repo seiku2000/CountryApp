@@ -46,6 +46,39 @@
 
                 }
 
+                @if (emptyMessageError()) {
+                <tr>
+                    <td colspan="8" class="text-center text-error font-semibold p-4">
+                        {{ emptyMessageError() }}
+                    </td>
+                </tr>
+                }
+
+                @if (errorMessage()) {
+                <tr>
+                    <td colspan="8" class="text-center text-error font-semibold p-4">
+                        {{ errorMessage() }}
+                    </td>
+                </tr>
+                }
+                <!--  -->
+                @if (countries().length === 0 && !isLoading() && !emptyMessageError() && !errorMessage()) {
+                <tr>
+                    <td colspan="8" class="text-center p-4">No countries found</td>
+                </tr>
+                }
+                <!---->
+
+                @if (isLoading()) {
+                <tr>
+                    <td colspan="8" class="text-center p4">Loading ...</td>
+                </tr>
+                }
+
+
+
+
+
                 <!--
                 
                 <tr class="hover:bg-base-100 cursor-pointer">

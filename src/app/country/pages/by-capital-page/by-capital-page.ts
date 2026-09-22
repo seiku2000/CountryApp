@@ -47,24 +47,40 @@ export class ByCapitalPage {
 
 
 
-  //Se encarga de obtener los datos del servicio y los almacena en una señal, la cual es observada por el template.
+  // Se encarga del ENTER o botón de búsqueda
   onSearch(value: string) {
     const trimmed = value.trim();
-
-
-
 
     if (!trimmed) {
 
       this.emptyError.set('Debes ingresar el nombre de una capital para buscar');
+      this.query.set('');
       return;
     }
-
-
 
     this.emptyError.set(null);
     this.query.set(trimmed);
   }
+
+  // Se encarga exclusivamente de la tecla BACKSPACE
+  onBackSpace(event: KeyboardEvent) {
+    if (event.key !== 'Backspace') return;
+
+    const input = event.target as HTMLInputElement;
+    const value = input.value.trim();
+
+
+    // Al borrar, quitamos el error
+    this.emptyError.set(null);
+
+    // Si ya borró todo el texto (o le queda solo 1 caracter por borrar):
+    if (value.length <= 1) {
+      this.query.set(''); // Limpia la tabla y vuelve a mostrar "No countries found"
+    }
+  }
+
+  // este es un ejemplo de como se podria limpiar el valor cuando se presiona la tecla backspace
+
 
   /*
     public searchCarpitalService = inject(CountryService);

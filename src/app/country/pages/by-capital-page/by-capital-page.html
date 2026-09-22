@@ -2,8 +2,9 @@
   para el input  pasamos placeholder desde el padre 
 -->
 
-<app-country-input-search (value)="onSearch($event)" [placeHolder]="'buscar por capital'"></app-country-input-search>
-
+<app-country-input-search (eventBackSpace)="onBackSpace($event)" (value)="onSearch($event)"
+  [placeHolder]="'buscar por capital'"></app-country-input-search>
+<!--
 @if (emptyError() || capitalResoure.error()) {
 <div class="alert alert-error shadow-lg mt-4">
   <span>
@@ -14,3 +15,9 @@
 @else if(capitalResoure.hasValue()){
 <app-country-table [countries]="capitalResoure.value()! "></app-country-table>
 }
+
+
+-->
+<app-country-table [countries]="capitalResoure.value() ?? [] " [errorMessage]="capitalResoure.error()?.message"
+  [isEmpty]="capitalResoure.value()?.length === 0" [isLoading]="capitalResoure.isLoading()"
+  [emptyMessageError]="emptyError()"></app-country-table>
