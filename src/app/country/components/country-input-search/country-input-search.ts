@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, input, output, signal } from '@angular/core';
 
 @Component({
   selector: 'app-country-input-search',
@@ -16,6 +16,9 @@ export class CountryInputSearch {
 
   eventBackSpace = output<KeyboardEvent>();
 
+
+  inputValue = signal<string>('');
+
   // recibimos el valor del input y lo enviamos al padre 
   onSearch(txtSearch: string) {
     //console.log(txtSearch);
@@ -32,6 +35,21 @@ export class CountryInputSearch {
 
   }
 
+  debounceValue = effect((onCleanup) => {
+    const value = this.inputValue();
+
+    // Si está vacío (por ejemplo al iniciar el componente), no emitir para no activar emptyError
+    if (!value || value.trim().length === 0) return;
+
+    const timeout = setTimeout(() => {
+      this.value.emit(value);
+    }, 500);
+
+    // aqui llamamos a la funcion cleanup para limpiar el timeout antes corra el efecto de nuevo
+    onCleanup(() => {
+      clearTimeout(timeout);
+    });
+  });
 
 
 
