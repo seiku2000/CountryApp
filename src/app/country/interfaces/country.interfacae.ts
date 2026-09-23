@@ -14,7 +14,8 @@ export interface Countrys {
     lng: number;
     natalidadM: string
     coin: string[],
-    symbol: string[]
+    symbol: string[],
+    timezones: string[],
 
 
 }
