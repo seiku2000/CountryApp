@@ -10,12 +10,13 @@ export interface Countrys {
     kilometros: number,
     miles: number,
     region: string;
+    subRegion: string;
     lat: number;
     lng: number;
     natalidadM: string
     coin: string[],
     symbol: string[],
-    timezones: string[],
+
 
 
 }

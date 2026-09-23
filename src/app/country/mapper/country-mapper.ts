@@ -28,7 +28,8 @@ export class CountryMapper {
             coin: country.currencies.map(coin => coin.name),
             symbol: country.currencies.map(coin => coin.symbol),
             region: country.region,
-            timezones: country.timezones.map(timezone => timezone),
+            subRegion: country.subregion,
+
         }
 
 
