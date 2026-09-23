@@ -5,10 +5,11 @@ import { CountryService } from '../../services/country.service';
 
 import { firstValueFrom, of } from 'rxjs';
 import { NotFound } from '../../../shared/components/not-found/not-found';
+import { CountryInformationPage } from './country-information-page/country-information-page';
 
 @Component({
   selector: 'app-country-page-component',
-  imports: [NotFound],
+  imports: [NotFound, CountryInformationPage],
   templateUrl: './country-page-component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
 })

@@ -4,7 +4,19 @@ export interface Countrys {
     capital: string[],
     flagEmoji: string;
     flagUrlSvg: string,
+    flagUrlPng: string,
     population: number;
+    descriptionShort: string,
+    kilometros: number,
+    miles: number,
+    region: string;
+    lat: number;
+    lng: number;
+    natalidadM: string
+    coin: string[],
+    symbol: string[]
+
+
 }
 
 /*

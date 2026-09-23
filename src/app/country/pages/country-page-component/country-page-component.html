@@ -2,13 +2,14 @@
 <app-not-found></app-not-found>
 }
 
-<div class="grid grid-cols-2">
+@if ((contryResource.isLoading())) {
+<h1 class="text-3xl"> Cargando...</h1>
+}
+
+<div class="flex justify-center items-center w-full my-6">
     @if ((contryResource.hasValue())) {
 
-    <h3>{{contryResource.value()!.name}}</h3>
-
+    <country-information-page [countryInformation]="contryResource.value()!"></country-information-page>
 
     }
-
-
 </div>

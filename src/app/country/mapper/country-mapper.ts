@@ -14,10 +14,21 @@ export class CountryMapper {
         return {
             cca3: country.codes.alpha_3,
             name: this.getCountryName(country),
+            descriptionShort: country.descriptions.short,
             capital: country.capitals.map(capital => capital.name),
             flagEmoji: country.flag.emoji,
             flagUrlSvg: country.flag.url_svg,
-            population: country.population
+            flagUrlPng: country.flag.url_png,
+            population: country.population,
+            kilometros: country.area.kilometers,
+            miles: country.area.miles,
+            lat: country.coordinates.lat,
+            lng: country.coordinates.lng,
+            natalidadM: country.demonyms.eng.m,
+            coin: country.currencies.map(coin => coin.name),
+            symbol: country.currencies.map(coin => coin.symbol),
+            region: country.region,
+
         }
 
 
