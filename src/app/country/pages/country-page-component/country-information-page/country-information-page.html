@@ -41,7 +41,7 @@
 
 
 
-<section class="mt-5">
+<section class="mt-5 skeleton">
 
 
     <div class=" stats stats-vertical   md:stats-horizontal  shadow">
@@ -86,7 +86,8 @@
         <div class="stat">
             <div class="stat-figure text-secondary">
                 <div class="avatar avatar-online">
-                    <div class="w-16 rounded-full">
+                    <div
+                        class="w-16 rounded-full object-cover cursor-pointer  hover:scale-105 transition-transform duration-300 shadow-lg shadow-gray-500/50">
                         <img [alt]="countryInformation().name" [src]="countryInformation().flagUrlSvg" />
                     </div>
                 </div>
