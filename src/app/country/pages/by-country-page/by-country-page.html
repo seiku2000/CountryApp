@@ -1,12 +1,7 @@
-<app-country-input-search (value)="onSearch($event)" [placeHolder]="'buscar por pais'"></app-country-input-search>
+<app-country-input-search (eventBackSpace)="onBackSpace($event)" (value)="onSearch($event)"
+    [placeHolder]="'buscar por Country'"></app-country-input-search>
 
 
-@if (emptyError() || capitalResource.error()) {
-<div class="alert alert-error shadow-lg mt-4">
-    <span>
-        {{ emptyError() || capitalResource.error()?.message }}
-    </span>
-</div>
-} @else if(capitalResource.hasValue()){
-<app-country-table [countries]="capitalResource.value() "></app-country-table>
-}
+<app-country-table [countries]="capitalResource.value() ?? [] " [errorMessage]="capitalResource.error()?.message"
+    [isEmpty]="capitalResource.value()?.length === 0" [isLoading]="capitalResource.isLoading()"
+    [emptyMessageError]="emptyError()"></app-country-table>

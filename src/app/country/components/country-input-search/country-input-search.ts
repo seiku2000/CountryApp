@@ -43,7 +43,7 @@ export class CountryInputSearch {
 
     const timeout = setTimeout(() => {
       this.value.emit(value);
-    }, 500);
+    }, 1000);
 
     // aqui llamamos a la funcion cleanup para limpiar el timeout antes corra el efecto de nuevo
     onCleanup(() => {
