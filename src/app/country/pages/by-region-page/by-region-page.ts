@@ -37,7 +37,7 @@ export class ByRegionPage {
 
 
   onSelectRegion(region: Regiones) {
-    console.log(region);
+    // console.log(region);
     if (this.query() === region) return;
     this.query.set(region);
     //this.query.set(region);
