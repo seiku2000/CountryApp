@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, resource, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, linkedSignal, resource, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { CountryInputSearch } from '../../components/country-input-search/country-input-search';
 import { CountryTable } from '../../components/country-table/country-table';
@@ -6,6 +6,7 @@ import { CountryService } from '../../services/country.service';
 //import { Country, DataCountry } from '../../interfaces/data-country.interface';
 import { Countrys } from '../../interfaces/country.interfacae';
 import { firstValueFrom, of, timeout, TimeoutError } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-by-capital-page',
@@ -15,8 +16,20 @@ import { firstValueFrom, of, timeout, TimeoutError } from 'rxjs';
 })
 export class ByCapitalPage {
   public searchCarpitalService = inject(CountryService);//importamos el servicio
-  query = signal<string>('');
+
   emptyError = signal<string | null>(null);
+
+
+  activatedRoute = inject(ActivatedRoute);
+  //esta opcion sirve  mas para manejar parametros de la url, en dado que cambie el argumento dinamico (id, user, etc) o queryParam  
+  //queryParams = this.activatedRoute.queryParamMap.subscribe
+
+  queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') ?? '';
+
+  //es una señal que se mantiene sincronizada con el queryParam
+  //en dado que cambie el queryParam se actualizara esta señal automaticamente
+  //y al tener una dependencia de esta señal en el rxResource, se actualizara automaticamente
+  query = linkedSignal<string>(() => this.queryParam.trim());
 
 
 
@@ -26,7 +39,9 @@ export class ByCapitalPage {
     params: () => ({ query: this.query() }),
     stream: ({ params }) => {//el stream es como un switchMap pero lo  hace por dentro automaticamente sin que te suscribas o hagas un mapeo
       const { query } = params;//desestructura el objeto de params
+      console.log(query);
       if (!query) return of([]); //of nos permite crear un observable que emita un valor
+      console.log(query);
       return this.searchCarpitalService.searchByCapital(query);
     }
   });
@@ -78,6 +93,16 @@ export class ByCapitalPage {
       this.query.set(''); // Limpia la tabla y vuelve a mostrar "No countries found"
     }
   }
+
+
+
+
+
+
+
+
+
+
 
   // este es un ejemplo de como se podria limpiar el valor cuando se presiona la tecla backspace
 

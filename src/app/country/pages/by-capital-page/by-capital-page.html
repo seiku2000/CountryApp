@@ -3,7 +3,7 @@
 -->
 
 <app-country-input-search (eventBackSpace)="onBackSpace($event)" (value)="onSearch($event)"
-  [placeHolder]="'buscar por capital'"></app-country-input-search>
+  [placeHolder]="'buscar por capital'" [initialValue]="query()"></app-country-input-search>
 <!--
 @if (emptyError() || capitalResoure.error()) {
 <div class="alert alert-error shadow-lg mt-4">

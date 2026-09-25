@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, input, linkedSignal, output, signal } from '@angular/core';
 
 @Component({
   selector: 'app-country-input-search',
@@ -14,10 +14,18 @@ export class CountryInputSearch {
   // emitimos un output al padre (value)= como evento para poder recibirlo en el padre
   value = output<string>();
 
+  initialValue = input<string>('');
+
   eventBackSpace = output<KeyboardEvent>();
 
+  //esto muy util para que el linkedSignal se actualice cando cambie el initialValue
+  //es como si fuera una signal que depende de otra signal y siempre tendrá su mismo valor.
+  inputValue = linkedSignal<string>(() => this.initialValue() ?? '');
 
-  inputValue = signal<string>('');
+
+
+
+
 
   // recibimos el valor del input y lo enviamos al padre 
   onSearch(txtSearch: string) {
