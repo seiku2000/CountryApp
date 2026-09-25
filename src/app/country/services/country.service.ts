@@ -128,6 +128,7 @@ export class CountryService {
             return of(this.queryCacheRegion.get(region) ?? [])
 
         }
+        console.log(`llegando por el servidor desde country ${region}`);
 
         return this.http.get<CountryResponse>(`${countryEnviroments.API_URL}`, {
 
@@ -145,7 +146,8 @@ export class CountryService {
             map((country) => {
                 const Regions = country.filter(country => country.region.toLowerCase() === region.toLowerCase());
                 return Regions
-            })
+            }),
+            tap((response) => this.queryCacheRegion.set(region, response)),
 
 
         )

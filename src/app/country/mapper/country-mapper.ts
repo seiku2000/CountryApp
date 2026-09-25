@@ -24,7 +24,7 @@ export class CountryMapper {
             miles: country.area.miles,
             lat: country.coordinates.lat,
             lng: country.coordinates.lng,
-            natalidadM: country.demonyms.eng.m,
+            natalidadM: country.demonyms?.eng?.m ?? '',
             coin: country.currencies.map(coin => coin.name),
             symbol: country.currencies.map(coin => coin.symbol),
             region: country.region,
