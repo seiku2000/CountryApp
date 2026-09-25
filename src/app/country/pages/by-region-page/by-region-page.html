@@ -1,1 +1,7 @@
-<app-country-table></app-country-table>
+<div class="flex ">
+    @for (region of Regions; track $index) {
+    <button (click)="onSelectRegion(region)" class="btn btn-outline-primary">{{ region }}</button>
+
+    }
+</div>
+<app-country-table [countries]="regionResource.value() ?? []"></app-country-table>

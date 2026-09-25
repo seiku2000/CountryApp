@@ -4,7 +4,7 @@ import { countryEnviroments } from '../../environments/country.environments';
 import { Country, CountryResponse } from '../interfaces/data-country.interface';
 import { catchError, delay, map, Observable, of, tap, throwError } from 'rxjs';
 import { CountryMapper } from '../mapper/country-mapper';
-import { Countrys } from '../interfaces/country.interfacae';
+import { Countrys, Regiones } from '../interfaces/country.interfacae';
 
 
 /*
@@ -18,6 +18,17 @@ export class CountryService {
     private http = inject(HttpClient);
     private queryCacheCapital = new Map<string, Countrys[]>();//aca voy a guardar las respuestas que ya obtuve
     private queryCacheByCountry = new Map<string, Countrys[]>();
+    private queryCacheRegion = new Map<string, Countrys[]>();
+    /*
+        public Regions: Regiones[] = [
+            'Africa',
+            'Americas',
+            'Asia',
+            'Europe',
+            'Oceania',
+            'Antarctic',
+        ];*/
+
     //regresa un Observable
     searchByCapital(query: string): Observable<Countrys[]> {
         query = query.toLowerCase();
@@ -109,6 +120,41 @@ export class CountryService {
 
         )
     }
+
+    searchCountryByRegion(region: string) {
+        region = region.toLowerCase();
+
+        if (this.queryCacheRegion.has(region)) {
+            return of(this.queryCacheRegion.get(region) ?? [])
+
+        }
+
+        return this.http.get<CountryResponse>(`${countryEnviroments.API_URL}`, {
+
+            headers: {//agregamos los headers para la autenticacion con api key
+                Authorization: `Bearer ${countryEnviroments.API_KEY}`
+            },
+            params: {//agregamos los parametros para la busqueda de la capital
+                q: region,
+
+            },
+
+
+        }).pipe(
+            map((res) => CountryMapper.mapCountryTOarrys(res)),
+            map((country) => {
+                const Regions = country.filter(country => country.region.toLowerCase() === region.toLowerCase());
+                return Regions
+            })
+
+
+        )
+
+
+
+    }
+
+
 
 
 

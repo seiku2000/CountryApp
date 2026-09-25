@@ -19,7 +19,12 @@ export interface Countrys {
 
 
 
+
 }
+
+export type Regiones = 'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania' | 'Antarctic';
+
+
 
 /*
 export interface Capital {
