@@ -1,4 +1,4 @@
-<section class="mt-4 md:mt-6 lg:mt-8  mb-6 md:mb-0      ">
+<section class="mt-4 md:mt-6 lg:mt-8  mb-6  md:mb-8      ">
     <div class="overflow-x-auto rounded-box border border-base-content/10 bg-base-200 shadow-sm">
         <table class="table table-sm  table-md table-lg ">
             <!-- head -->
@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for (country of countries(); track country; let index = $index) {
+                @for (country of countries(); track country.cca3 ; let index = $index) {
 
                 <tr class="hover:bg-base-100 cursor-pointer">
 
