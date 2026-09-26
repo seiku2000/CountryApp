@@ -6,6 +6,7 @@ import { CountryService } from '../../services/country.service';
 import { firstValueFrom, of } from 'rxjs';
 import { NotFound } from '../../../shared/components/not-found/not-found';
 import { CountryInformationPage } from './country-information-page/country-information-page';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-country-page-component',
@@ -20,6 +21,7 @@ export class CountryPageComponent {
   // si se cambia de pagina y vuelve al mismo componente se rompe el flujo
   countryCode = inject(ActivatedRoute).snapshot.params['code'];//params detecta cambios en los parametros
   countryService = inject(CountryService);
+  private location = inject(Location);
 
 
   contryResource = rxResource({
@@ -33,6 +35,11 @@ export class CountryPageComponent {
 
 
   })
+
+  goBack() {
+    this.location.back();
+
+  }
 
 }
 

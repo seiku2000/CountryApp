@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, linkedSignal, resource, signal } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { CountryInputSearch } from '../../components/country-input-search/country-input-search';
 import { CountryTable } from '../../components/country-table/country-table';
 import { CountryService } from '../../services/country.service';
 //import { Country, DataCountry } from '../../interfaces/data-country.interface';
 import { Countrys } from '../../interfaces/country.interfacae';
-import { firstValueFrom, of, timeout, TimeoutError } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { firstValueFrom, map, of, timeout, TimeoutError } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-by-capital-page',
@@ -21,15 +21,29 @@ export class ByCapitalPage {
 
 
   activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
+
+
   //esta opcion sirve  mas para manejar parametros de la url, en dado que cambie el argumento dinamico (id, user, etc) o queryParam  
   //queryParams = this.activatedRoute.queryParamMap.subscribe
 
   queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') ?? '';
+  /*
+    queryParam = toSignal(
+      this.activatedRoute.queryParamMap.pipe(
+        map(params => params.get('query')?.trim() ?? '')
+      ),
+      { initialValue: this.activatedRoute.snapshot.queryParamMap.get('query')?.trim() ?? '' }
+    );*/
+
+
+
 
   //es una señal que se mantiene sincronizada con el queryParam
   //en dado que cambie el queryParam se actualizara esta señal automaticamente
   //y al tener una dependencia de esta señal en el rxResource, se actualizara automaticamente
-  query = linkedSignal<string>(() => this.queryParam.trim());
+  // query = linkedSignal<string>(() => this.queryParam);
+  query = signal(this.queryParam);
 
 
 
@@ -39,9 +53,13 @@ export class ByCapitalPage {
     params: () => ({ query: this.query() }),
     stream: ({ params }) => {//el stream es como un switchMap pero lo  hace por dentro automaticamente sin que te suscribas o hagas un mapeo
       const { query } = params;//desestructura el objeto de params
-      console.log(query);
+      // console.log(query);
       if (!query) return of([]); //of nos permite crear un observable que emita un valor
-      console.log(query);
+      this.router.navigate(['/country/by-capital'], {
+        queryParams: {
+          query: query.trim(),
+        }
+      })
       return this.searchCarpitalService.searchByCapital(query);
     }
   });

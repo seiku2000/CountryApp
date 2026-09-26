@@ -1,3 +1,25 @@
+<!-- Botón Volver -->
+<div class="w-full max-w-3xl mx-auto px-4 pt-2 pb-2 flex items-center justify-start">
+    <button
+        type="button"
+        (click)="goBack()"
+        class="group btn btn-sm sm:btn-md btn-soft btn-primary gap-2 rounded-xl shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="size-4 sm:size-5 transition-transform duration-200 group-hover:-translate-x-1"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        </svg>
+        <span class="font-medium text-sm sm:text-base">Volver</span>
+    </button>
+</div>
+
+
 @if (contryResource.error()) {
 <app-not-found></app-not-found>
 }
